@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:provider_app/create.dart';
+import 'package:provider_app/catalog.dart';
 import 'package:provider_app/state.dart';
-import 'package:provider_app/home.dart';
+import 'package:provider_app/questionnaire.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => Counter(),
+      create: (context) => QuestionnaireList(),
       child: const MyApp(),
     ),
   );
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => CreatePage(),
-        '/create': (context) => MyHomePage(),
+        '/catalog': (context) => Catalog(),
+        '/questionnaire': (context) => QuestionnairePage(),
       },
     );
   }
