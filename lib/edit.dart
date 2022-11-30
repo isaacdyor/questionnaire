@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:provider_app/state.dart';
 import 'package:provider_app/text_input.dart';
 
-class CreatePage extends StatelessWidget {
-  CreatePage({super.key});
+class EditPage extends StatelessWidget {
+  EditPage({super.key});
   TextEditingController textController = TextEditingController();
   TextEditingController textController2 = TextEditingController();
   TextEditingController textController3 = TextEditingController();

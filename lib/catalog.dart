@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:provider_app/questionnaire.dart';
 import 'package:provider_app/state.dart';
 
 class Catalog extends StatelessWidget {
-  Catalog({super.key});
-  TextEditingController textController = TextEditingController();
+  const Catalog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,29 +13,96 @@ class Catalog extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Consumer<QuestionnaireList>(
                 builder: (context, questionnaireList, child) =>
                     Column(children: [
-                      for (var myQuestionnaire
-                          in questionnaireList.questionnaires)
+                      Text(
+                        "Questionnaires",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      const SizedBox(height: 10),
+                      if (questionnaireList.questionnaires.isEmpty)
+                        const Text("No Questionnaires")
+                      else
                         Column(
                           children: [
-                            const SizedBox(height: 10),
-                            TextButton(
-                              style: ButtonStyle(
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.blue),
+                            for (var myQuestionnaire
+                                in questionnaireList.questionnaires)
+                              Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          foregroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.white),
+                                        ),
+                                        onPressed: () => {
+                                          questionnaireList
+                                              .setActive(myQuestionnaire.id),
+                                          Navigator.pushNamed(context, '/form'),
+                                        },
+                                        child: Text(myQuestionnaire.title),
+                                      ),
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          foregroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.white),
+                                        ),
+                                        onPressed: () => {
+                                          questionnaireList
+                                              .setActive(myQuestionnaire.id),
+                                          Navigator.pushNamed(
+                                              context, '/results'),
+                                        },
+                                        child: const Text("Results"),
+                                      ),
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          foregroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.white),
+                                        ),
+                                        onPressed: () => {
+                                          questionnaireList
+                                              .setActive(myQuestionnaire.id),
+                                          Navigator.pushNamed(context, '/edit'),
+                                        },
+                                        child: const Text("Edit"),
+                                      ),
+                                      ElevatedButton(
+                                        style: ButtonStyle(
+                                          foregroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Colors.white),
+                                        ),
+                                        onPressed: () => {
+                                          questionnaireList.deleteQuestionnaire(
+                                              myQuestionnaire.id),
+                                        },
+                                        child: const Text("Delete"),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                ],
                               ),
-                              onPressed: () => {
-                                Navigator.pushNamed(context, '/questionnaire'),
-                              },
-                              child: Text("${myQuestionnaire.title} bruh"),
-                            )
                           ],
-                        )
+                        ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                        ),
+                        onPressed: () => {
+                          Navigator.pushNamed(context, '/'),
+                        },
+                        child: const Text("Create New Questionnaire"),
+                      )
                     ])),
           ],
         ),

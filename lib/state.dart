@@ -5,8 +5,22 @@ class QuestionnaireList extends ChangeNotifier {
 
   int activeQuestionnaire = 0;
 
+  void setActive(int active) {
+    activeQuestionnaire = active;
+    notifyListeners();
+  }
+
   void addQuestionnaire(Questionnaire questionnaire) {
     questionnaires.add(questionnaire);
+    notifyListeners();
+  }
+
+  void deleteQuestionnaire(int index) {
+    questionnaires.removeAt(index);
+    notifyListeners();
+  }
+
+  void dummyOperation() {
     notifyListeners();
   }
 }
@@ -23,6 +37,11 @@ class Questionnaire extends ChangeNotifier {
 
   void incrementIndex() {
     questionIndex += 1;
+    notifyListeners();
+  }
+
+  void resetIndex() {
+    questionIndex = 0;
     notifyListeners();
   }
 
@@ -53,6 +72,13 @@ class Question extends ChangeNotifier {
 
   void addOption(String option) {
     options.add(option);
+    notifyListeners();
+  }
+
+  List<String> responses = [];
+
+  void addResponse(String response) {
+    responses.add(response);
     notifyListeners();
   }
 
